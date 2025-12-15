@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")] //adres naszego kontrolera - w nawiasach kwadratowych nazwa klasy bez "Controller"
-    [ApiController] // oznaczamy nasz kontroler jako API
-    public class ValuesController : ControllerBase
+    public class ValuesController : ApiController
     {
         private readonly IList<int> _values;
         public ValuesController(IList<int> values) //wartości są wstrzykiwane przez mechanizm DI
@@ -25,7 +22,7 @@ namespace WebAPI.Controllers
             return _values[index];
         }
 
-       // [HttpDelete] // domyślny route to api/values - parametr w query requestu
+        // [HttpDelete] // domyślny route to api/values - parametr w query requestu
         [HttpDelete("{value:int}")] // {value:int} - parametr w path z określonym typem
         public void Delete(int value)
         {
