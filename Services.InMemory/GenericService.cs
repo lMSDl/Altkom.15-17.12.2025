@@ -4,8 +4,16 @@ namespace Services.InMemory
 {
     public class GenericService<T> : IGenericService<T> where T : Models.Entity
     {
-        protected readonly List<T> _items = new();
+        protected readonly List<T> _items;
 
+        public GenericService() : this([])
+        {
+        }
+
+        public GenericService(List<T> items)
+        {
+            _items = items;
+        }
 
         public Task<int> CreateAsync(T entity)
         {
