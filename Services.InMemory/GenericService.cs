@@ -29,6 +29,12 @@ namespace Services.InMemory
             return Task.FromResult<IEnumerable<T>>([.. _items]);
         }
 
+        public Task<IEnumerable<T>> ReadAsync(Func<T, bool> func)
+        {
+            var result = _items.Where(func).ToArray();
+            return Task.FromResult<IEnumerable<T>>(result);
+        }
+
         public Task<T?> ReadByIdAsync(int id)
         {
             var entity = _items.FirstOrDefault(e => e.Id == id);

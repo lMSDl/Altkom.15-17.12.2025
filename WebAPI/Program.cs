@@ -12,6 +12,7 @@ builder.Services.AddSingleton<IList<int>>([.. Enumerable.Repeat(0, 100).Select(x
     new ShoppingList { Id = 3, Name = "Clothing" }
     ]);*/
 builder.Services.AddSingleton<IGenericService<ShoppingList>, GenericService<ShoppingList>>();
+builder.Services.AddSingleton<IGenericService<Product>, GenericService<Product>>();
 builder.Services.AddSingleton<IPeopleService, PeopleService>();
 builder.Services.AddControllers();
 

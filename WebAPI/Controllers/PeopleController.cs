@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Interfaces;
+using WebAPI.Controllers.Generic;
 
 namespace WebAPI.Controllers
 {
-    public class PeopleController : GenericController<Person>
+    public class PeopleController : GenericResourceApiController<Person>
     {
         private readonly IPeopleService _peopleService;
         public PeopleController(IPeopleService service) : base(service)
