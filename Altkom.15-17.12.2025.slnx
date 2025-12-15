@@ -1,5 +1,7 @@
 <Solution>
   <Project Path="Models/Models.csproj" />
+  <Project Path="Services.InMemory/Services.InMemory.csproj" />
+  <Project Path="Services.Interfaces/Services.Interfaces.csproj" />
   <Project Path="WebAPI/WebAPI.csproj" />
   <Project Path="WebApp/WebApp.csproj" />
   <Project Path="WebMinimalAPI/WebMinimalAPI.csproj" />
