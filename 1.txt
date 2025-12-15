@@ -1,0 +1,57 @@
+Założenia projektowe
+	Aplikacja Web API
+	Dwa niezależne zasoby REST:
+		Books
+		Movies
+	
+	Każdy zasób:
+		osobny model
+		osobny kontroler
+		pełne wsparcie podstawowych operacji REST
+
+	Dane przechowywane w pamięci aplikacji
+	
+	Testowanie wyłącznie przez:
+	pliki .http (Visual Studio / Rider)
+	lub Postman
+
+	Modele danych
+		Book
+			Id (int)
+			Title (string)
+			Author (string)
+		Movie
+			Id (int)
+			Title (string)
+			Year (int)
+
+	Zasady REST (wymagane)
+		Każdy zasób posiada własny URI:
+			/api/books
+			/api/movies
+
+	Metody HTTP zgodne z przeznaczeniem:
+		GET – pobieranie danych
+		POST – tworzenie zasobu
+		DELETE – usuwanie zasobu
+
+	Dane przesyłane w formacie JSON
+		Poprawne kody odpowiedzi HTTP:
+			200 OK
+			201 Created
+			204 No Content
+			404 Not Found
+
+Dostępne endpointy
+Books
+Metoda	URI	Opis
+GET	/api/books	Pobranie wszystkich książek
+GET	/api/books/{id}	Pobranie książki po ID
+POST	/api/books	Dodanie nowej książki
+DELETE	/api/books/{id}	Usunięcie książki
+Movies
+Metoda	URI	Opis
+GET	/api/movies	Pobranie wszystkich filmów
+GET	/api/movies/{id}	Pobranie filmu po ID
+POST	/api/movies	Dodanie nowego filmu
+DELETE	/api/movies/{id}	Usunięcie filmu
