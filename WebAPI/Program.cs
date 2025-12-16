@@ -6,6 +6,7 @@ using Services.Bogus;
 using Services.Bogus.Fakers;
 using Services.InMemory;
 using Services.Interfaces;
+using WebAPI.Filters;
 using WebAPI.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,9 +55,10 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 builder.Services.AddScoped<IValidator<ShoppingList>, ShoppingListValidator>();
 
+builder.Services.AddSingleton<ConsoleLogFilter>();
+builder.Services.AddSingleton(new LimiterFilter(5));
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 

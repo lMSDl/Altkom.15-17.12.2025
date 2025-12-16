@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading;
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
@@ -14,6 +15,7 @@ namespace WebAPI.Controllers
         private static  int _counter = 0;
 
         [HttpGet] //metoda obsługuje żądania HTTP GET
+        [ServiceFilter<ConsoleLogFilter>]
         public async Task<IEnumerable<int>> Get(CancellationToken cancellationToken)
         {
             try

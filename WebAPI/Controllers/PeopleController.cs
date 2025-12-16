@@ -4,9 +4,11 @@ using Models;
 using Services.Interfaces;
 using System.Xml.Linq;
 using WebAPI.Controllers.Generic;
+using WebAPI.Filters;
 
 namespace WebAPI.Controllers
 {
+    [ServiceFilter<LimiterFilter>]
     public class PeopleController : GenericResourceApiController<Person>
     {
         private readonly IPeopleService _peopleService;
