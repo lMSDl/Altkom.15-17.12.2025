@@ -1,6 +1,7 @@
 using Bogus;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Models;
 using Services.Bogus;
 using Services.Bogus.Fakers;
@@ -61,11 +62,18 @@ builder.Services.AddSingleton(new LimiterFilter(5));
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+builder.Services.AddResponseCompression(x =>
+{
+    x.Providers.Clear();
+    x.Providers.Add<BrotliCompressionProvider>();
+    x.Providers.Add<GzipCompressionProvider>();
+});
+
 var app = builder.Build();
 
-
-
 app.UseExceptionHandler();
+
+app.UseResponseCompression();
 
 // Configure the HTTP request pipeline.
 

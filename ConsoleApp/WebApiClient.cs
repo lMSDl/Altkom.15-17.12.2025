@@ -10,12 +10,18 @@ namespace ConsoleApp
 
         public WebApiClient(string baseAddress)
         {
-            _httpClient = new HttpClient
+            var handler = new HttpClientHandler
+            {
+                AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate | System.Net.DecompressionMethods.Brotli
+            };
+
+            _httpClient = new HttpClient(handler)
             {
                 BaseAddress = new Uri(baseAddress)
             };
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.AcceptEncoding.Add(new System.Net.Http.Headers.StringWithQualityHeaderValue("br"));
         }
 
         public void Dispose()
@@ -27,6 +33,7 @@ namespace ConsoleApp
         {
             var response = await _httpClient.GetAsync(requestUri);
             response.EnsureSuccessStatusCode();
+            var @string = await response.Content.ReadAsStringAsync();
             return (await response.Content.ReadFromJsonAsync<T>(JsonSerializerOptions))!;
         }
 
