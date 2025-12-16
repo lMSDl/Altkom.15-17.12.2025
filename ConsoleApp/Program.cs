@@ -73,6 +73,26 @@ await webApiClient.PutAsync("shoppinglists", 99, new ShoppingList
 shoppingListFromApi = await webApiClient.GetAsync<ShoppingList>("shoppinglists", 99);
 
 
+
+using var openApiClient = new HttpClient();
+ConsoleApp.OpenApi.contractClient client = new ConsoleApp.OpenApi.contractClient(openApiClient);
+
+var openApiShoppingList = await client.ShoppingListsGETAsync(4);
+
+ await client.ProductsPOSTAsync(4, new ConsoleApp.OpenApi.Product
+{
+    Name = "New Product",
+    Price = 19.99f
+});
+ await client.ProductsPOSTAsync(4, new ConsoleApp.OpenApi.Product
+{
+    Name = "New Product 2",
+    Price = 19.99f
+});
+
+var products = await client.ProductsAllAsync(4);
+
+
 Console.ReadLine();
 
 
