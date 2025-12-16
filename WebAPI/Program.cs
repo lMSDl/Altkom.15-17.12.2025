@@ -1,10 +1,12 @@
 using Bogus;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Bogus;
 using Services.Bogus.Fakers;
 using Services.InMemory;
 using Services.Interfaces;
+using WebAPI.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +38,14 @@ builder.Services.AddControllers()
     })
     .AddXmlDataContractSerializerFormatters(); //w³¹czamy obs³ugê dla formatu XML
 
+//zawieszenie automatycznej walidacji modelu
 builder.Services.Configure<ApiBehaviorOptions>(x => x.SuppressModelStateInvalidFilter = true);
+
+//podejscie legacy (dla wersji FluentValudation < 12)
+//builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddScoped<IValidator<ShoppingList>, ShoppingListValidator>();
+
 
 var app = builder.Build();
 

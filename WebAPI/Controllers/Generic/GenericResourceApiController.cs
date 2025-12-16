@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Interfaces;
 
@@ -7,7 +8,7 @@ namespace WebAPI.Controllers.Generic
     public abstract class GenericResourceApiController<T> : GenericController<T>
     {
         private readonly IGenericService<T> _service;
-        public GenericResourceApiController(IGenericService<T> service) : base(service) //wartości są wstrzykiwane przez mechanizm DI
+        public GenericResourceApiController(IGenericService<T> service, IValidator<T>? validator = null) : base(service, validator) //wartości są wstrzykiwane przez mechanizm DI
         {
             _service = service;
         }
@@ -24,6 +25,16 @@ namespace WebAPI.Controllers.Generic
         [HttpPost]
         public virtual async Task<ActionResult<T>> Post([FromBody] T entity) //wartość pochodzi z ciała requestu
         {
+
+            if(_validator is not null)
+            {
+                var validationResult = await _validator.ValidateAsync(entity);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.ToDictionary());
+                }
+            }
+
             var id = await _service.CreateAsync(entity);
 
             //metoda CreatedAtAction pozwala na wskazanie funkcji, która może zostać użyta do pobrania nowo utworzonego zasobu - spowoduje to dodanie nagłówka Location do odpowiedzi
