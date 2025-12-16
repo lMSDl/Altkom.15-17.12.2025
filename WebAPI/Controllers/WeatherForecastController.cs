@@ -22,5 +22,11 @@ namespace WebAPI.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("not-implemented")]
+        public IEnumerable<WeatherForecast> GetNotImplemented()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

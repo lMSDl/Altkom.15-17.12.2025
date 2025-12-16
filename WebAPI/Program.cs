@@ -58,7 +58,14 @@ builder.Services.AddScoped<IValidator<ShoppingList>, ShoppingListValidator>();
 builder.Services.AddSingleton<ConsoleLogFilter>();
 builder.Services.AddSingleton(new LimiterFilter(5));
 
+builder.Services.AddExceptionHandler<ExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
+
+
+
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 
