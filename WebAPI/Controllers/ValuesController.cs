@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace WebAPI.Controllers
 {
@@ -10,10 +11,29 @@ namespace WebAPI.Controllers
             _values = values;
         }
 
+        private static  int _counter = 0;
+
         [HttpGet] //metoda obsługuje żądania HTTP GET
-        public IEnumerable<int> Get()
+        public async Task<IEnumerable<int>> Get(CancellationToken cancellationToken)
         {
-            return _values;
+            try
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    return [];
+
+                Interlocked.Increment(ref _counter);
+                await Task.Delay(5000, cancellationToken); //symulacja długotrwałej operacji
+                return _values;
+            }
+            catch (OperationCanceledException)
+            {
+                return [];
+            }
+            finally
+            {
+                Interlocked.Decrement(ref _counter);
+                Console.WriteLine(_counter);
+            }
         }
 
         [HttpGet("{index:int}")]
