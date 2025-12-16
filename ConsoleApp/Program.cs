@@ -1,6 +1,7 @@
 ﻿
 
 
+using ConsoleApp;
 using Models;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -57,4 +58,21 @@ result.EnsureSuccessStatusCode();
 
 var shoppingListFromApi = await result.Content.ReadFromJsonAsync<ShoppingList>(options);
 
+
+using WebApiClient webApiClient = new WebApiClient("http://localhost:5120/api/");
+webApiClient.JsonSerializerOptions.WriteIndented = true;
+webApiClient.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+webApiClient.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+
+var peopleFromClient =  await webApiClient.GetAsync<IEnumerable<Person>>("people");
+
+await webApiClient.PutAsync("shoppinglists", 99, new ShoppingList
+{
+    Name = "Updated Shopping List"
+});
+shoppingListFromApi = await webApiClient.GetAsync<ShoppingList>("shoppinglists", 99);
+
+
 Console.ReadLine();
+
+
