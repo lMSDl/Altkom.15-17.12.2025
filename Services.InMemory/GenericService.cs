@@ -34,7 +34,7 @@ namespace Services.InMemory
 
         public Task<IEnumerable<T>> ReadAsync()
         {
-            return Task.FromResult<IEnumerable<T>>([.. _items]);
+            return Task.FromResult<IEnumerable<T>>(_items.ToList());
         }
 
         public Task<IEnumerable<T>> ReadAsync(Func<T, bool> func)

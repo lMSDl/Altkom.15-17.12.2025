@@ -21,7 +21,19 @@ builder.Services.AddSingleton<IPeopleService, PeopleBogusService>();
 builder.Services.AddTransient<Faker<ShoppingList>, ShoppingListFaker>();
 builder.Services.AddTransient<Faker<Models.Person>, PersonFaker>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.WriteIndented = true;
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.SnakeCaseUpper;
+        //ignorowanie wlasciwosci tylko do odczytu podczas serializacji
+        options.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
+        //ignorowanie wartosci domyslnych podczas serializacji
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
+        //konfigurujemy serializacje aby obslugiwala cykle referencji za pomoc¹ mechanizmu referencji ($id, $ref)
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    })
+    .AddXmlDataContractSerializerFormatters(); //w³¹czamy obs³ugê dla formatu XML
 
 var app = builder.Build();
 
