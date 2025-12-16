@@ -1,4 +1,5 @@
 using Bogus;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Bogus;
 using Services.Bogus.Fakers;
@@ -25,15 +26,17 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.WriteIndented = true;
-        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.SnakeCaseUpper;
+        //options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.SnakeCaseUpper;
         //ignorowanie wlasciwosci tylko do odczytu podczas serializacji
         options.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
         //ignorowanie wartosci domyslnych podczas serializacji
         options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
         //konfigurujemy serializacje aby obslugiwala cykle referencji za pomoc¹ mechanizmu referencji ($id, $ref)
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        //options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
     })
     .AddXmlDataContractSerializerFormatters(); //w³¹czamy obs³ugê dla formatu XML
+
+builder.Services.Configure<ApiBehaviorOptions>(x => x.SuppressModelStateInvalidFilter = true);
 
 var app = builder.Build();
 

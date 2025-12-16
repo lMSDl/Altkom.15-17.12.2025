@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bogus.DataSets;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Interfaces;
+using System.Xml.Linq;
 using WebAPI.Controllers.Generic;
 
 namespace WebAPI.Controllers
@@ -40,5 +42,23 @@ namespace WebAPI.Controllers
             return base.Put(id, entity);
         }
 
+        public override async Task<ActionResult<Person>> Post([FromBody] Person entity)
+        {
+            if((await _peopleService.ReadByName(entity.FirstName)).Any() &&
+               (await _peopleService.ReadByName(entity.LastName)).Any())
+            {
+                ModelState.AddModelError(nameof(Person), "A person with the same first name and last name already exists.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                foreach (var key in ModelState.Keys.Where(x => x.StartsWith(nameof(Person.Parent))))
+                    ModelState.Remove(key);
+                if(!ModelState.IsValid)
+                    return BadRequest(ModelState);
+            }
+
+            return await base.Post(entity);
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace WebAPI.Controllers.Generic
         }
 
         [HttpPost]
-        public async Task<ActionResult<T>> Post([FromBody] T entity) //wartość pochodzi z ciała requestu
+        public virtual async Task<ActionResult<T>> Post([FromBody] T entity) //wartość pochodzi z ciała requestu
         {
             var id = await _service.CreateAsync(entity);
 
