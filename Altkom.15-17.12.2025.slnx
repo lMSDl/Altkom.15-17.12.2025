@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="ConsoleApp/ConsoleApp.csproj" />
   <Project Path="Models/Models.csproj" />
+  <Project Path="OWIN/OWIN.csproj" />
   <Project Path="Services.Bogus/Services.Bogus.csproj" />
   <Project Path="Services.InMemory/Services.InMemory.csproj" />
   <Project Path="Services.Interfaces/Services.Interfaces.csproj" />
