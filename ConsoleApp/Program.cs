@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 
 var httpClient = new HttpClient();
-httpClient.BaseAddress = new Uri("http://localhost:5120/api/");
+httpClient.BaseAddress = new Uri("https://localhost:5120/api/");
 httpClient.DefaultRequestHeaders.Accept.Clear();
 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -59,7 +59,7 @@ result.EnsureSuccessStatusCode();
 var shoppingListFromApi = await result.Content.ReadFromJsonAsync<ShoppingList>(options);
 
 
-using WebApiClient webApiClient = new WebApiClient("http://localhost:5120/api/");
+using WebApiClient webApiClient = new WebApiClient("https://localhost:5120/api/");
 webApiClient.JsonSerializerOptions.WriteIndented = true;
 webApiClient.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
 webApiClient.JsonSerializerOptions.PropertyNameCaseInsensitive = true;

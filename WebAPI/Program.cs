@@ -12,6 +12,11 @@ using WebAPI.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(x => x.ConfigureHttpsDefaults(httpsOptions =>
+{
+    httpsOptions.SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13;
+}));
+
 // Add services to the container.
 builder.Services.AddSingleton<IList<int>>([.. Enumerable.Repeat(0, 100).Select(x => Random.Shared.Next())]);
 /*builder.Services.AddSingleton<IList<ShoppingList>>([
@@ -67,6 +72,7 @@ builder.Services.AddResponseCompression(x =>
     x.Providers.Clear();
     x.Providers.Add<BrotliCompressionProvider>();
     x.Providers.Add<GzipCompressionProvider>();
+    x.EnableForHttps = true;
 });
 
 var app = builder.Build();
