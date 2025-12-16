@@ -40,6 +40,14 @@ builder.Services.AddControllers()
 
 //zawieszenie automatycznej walidacji modelu
 builder.Services.Configure<ApiBehaviorOptions>(x => x.SuppressModelStateInvalidFilter = true);
+//rêczna obs³uga b³êdów walidacji modelu
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        return new BadRequestObjectResult(context.ModelState);
+    };
+});
 
 //podejscie legacy (dla wersji FluentValudation < 12)
 //builder.Services.AddFluentValidationAutoValidation();
@@ -48,6 +56,7 @@ builder.Services.AddScoped<IValidator<ShoppingList>, ShoppingListValidator>();
 
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 
