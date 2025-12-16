@@ -17,6 +17,8 @@ namespace WebAPI.Controllers.Generic
 
        
         [HttpGet("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<T>> Get(int id)
         {
             var entity = await _service.ReadByIdAsync(id);
@@ -28,6 +30,8 @@ namespace WebAPI.Controllers.Generic
         }
 
         [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public virtual async Task<ActionResult> Put(int id, [FromBody] T entity) //wartość pochodzi z ciała requestu
         {
             if (await _service.ReadByIdAsync(id) is null)
@@ -40,6 +44,8 @@ namespace WebAPI.Controllers.Generic
             return NoContent(); // Zwraca kod statusu 204 No Content
         }
         [HttpDelete("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete(int id)
         {
             var entity = await _service.ReadByIdAsync(id);

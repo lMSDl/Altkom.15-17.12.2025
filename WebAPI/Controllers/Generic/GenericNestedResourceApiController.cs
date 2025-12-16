@@ -16,6 +16,8 @@ namespace WebAPI.Controllers.Generic
 
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<T>>> GetAllByParentId(int parentId)
         {
             var parentEntity = await _parentService.ReadByIdAsync(parentId);
@@ -33,6 +35,8 @@ namespace WebAPI.Controllers.Generic
         protected abstract void SetParentId(T item, int parentId);
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<int>> Post(int parentId, [FromBody] T item)
         {
             var parentEntity = await _parentService.ReadByIdAsync(parentId);

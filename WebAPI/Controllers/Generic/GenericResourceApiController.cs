@@ -14,6 +14,7 @@ namespace WebAPI.Controllers.Generic
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         //Aby móc zastosować metody pomocnicze REST używamy jako typu zwracanego IActionResult, ActionResult lub ActionResult<T>
         public virtual async Task<ActionResult<IEnumerable<T>>> Get()
         {
@@ -23,6 +24,8 @@ namespace WebAPI.Controllers.Generic
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public virtual async Task<ActionResult<T>> Post([FromBody] T entity) //wartość pochodzi z ciała requestu
         {
 

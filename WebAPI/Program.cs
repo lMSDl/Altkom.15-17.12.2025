@@ -75,6 +75,8 @@ builder.Services.AddResponseCompression(x =>
     x.EnableForHttps = true;
 });
 
+builder.Services.AddOpenApi("contract");
+
 var app = builder.Build();
 
 app.UseExceptionHandler();
@@ -86,5 +88,7 @@ app.UseResponseCompression();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapOpenApi();
+app.UseSwaggerUI(x => x.SwaggerEndpoint("/openapi/contract.json", "v1"));
 
 app.Run();
