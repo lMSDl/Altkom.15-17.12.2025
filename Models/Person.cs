@@ -5,7 +5,7 @@ namespace Models
     public class Person : Entity
     {
         public Person? Parent { get; set; }
-        //public ICollection<Person> Children { get; set; } = [];
+        public ICollection<Person> Children { get; set; } = [];
 
         [Required]
         public string FirstName { get; set; } = string.Empty;

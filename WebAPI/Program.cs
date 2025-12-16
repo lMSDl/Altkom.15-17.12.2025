@@ -35,7 +35,7 @@ builder.Services.AddControllers()
         //ignorowanie wartosci domyslnych podczas serializacji
         options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
         //konfigurujemy serializacje aby obslugiwala cykle referencji za pomoc¹ mechanizmu referencji ($id, $ref)
-        //options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
     })
     .AddXmlDataContractSerializerFormatters(); //w³¹czamy obs³ugê dla formatu XML
 
