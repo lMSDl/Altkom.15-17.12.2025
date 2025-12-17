@@ -8,4 +8,5 @@
   <Project Path="WebAPI/WebAPI.csproj" />
   <Project Path="WebApp/WebApp.csproj" />
   <Project Path="WebMinimalAPI/WebMinimalAPI.csproj" />
+  <Project Path="WebSockets/WebSockets.csproj" />
 </Solution>
