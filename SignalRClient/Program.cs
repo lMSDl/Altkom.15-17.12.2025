@@ -3,7 +3,24 @@
 
 var signalR = new HubConnectionBuilder()
     .WithUrl("https://localhost:7178/SignalR/demo")
+    .WithAutomaticReconnect()
     .Build();
+
+
+signalR.Closed += async (error) =>
+{
+    Console.WriteLine("Connection closed.");
+};
+signalR.Reconnecting += async (error) =>
+{
+    Console.WriteLine("Reconnecting...");
+};
+signalR.Reconnected += async (connectionId) =>
+{
+    Console.WriteLine("Reconnected. Connection ID: " + connectionId);
+    await signalR.SendAsync("JoinToGroup", "alamakota");
+};
+
 
 signalR.On<string>("HelloMessage", x => HelloMessage(x));
 signalR.On<string>(nameof(UserConnected), UserConnected);
@@ -19,6 +36,9 @@ await signalR.SendAsync("SendMessageToAll", "Hello from SignalR Client!");
 await signalR.SendAsync("JoinToGroup", "alamakota");
 await signalR.SendAsync("SendDemo");
 
+var sum = await signalR.InvokeAsync<int>("Add", 5, 7);
+
+Console.WriteLine($"5 + 7 = {sum}");
 Console.ReadLine();
 
 

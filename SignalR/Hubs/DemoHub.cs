@@ -33,6 +33,11 @@ namespace SignalR.Hubs
             await Clients.All.SendAsync("ReceiveRecord", new DemoRecord(Random.Shared.Next().ToString(), Random.Shared.Next()));
             await Clients.All.SendAsync("ReceiveRecord", Random.Shared.Next().ToString(), Random.Shared.Next());
         }
+
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
     }
 
     record DemoRecord(string Name, int Value);
