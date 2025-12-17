@@ -1,5 +1,7 @@
 <Solution>
   <Project Path="ConsoleApp/ConsoleApp.csproj" />
+  <Project Path="GrpcClient/GrpcClient.csproj" />
+  <Project Path="GrpcService/GrpcService.csproj" />
   <Project Path="Models/Models.csproj" />
   <Project Path="OWIN/OWIN.csproj" />
   <Project Path="Services.Bogus/Services.Bogus.csproj" />
