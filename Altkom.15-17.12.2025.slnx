@@ -7,6 +7,7 @@
   <Project Path="Services.Interfaces/Services.Interfaces.csproj" />
   <Project Path="SignalR/SignalR.csproj" />
   <Project Path="SignalRClient/SignalRClient.csproj" />
+  <Project Path="SignalRValuesClient/SignalRValuesClient.csproj" />
   <Project Path="WebAPI/WebAPI.csproj" />
   <Project Path="WebApp/WebApp.csproj" />
   <Project Path="WebMinimalAPI/WebMinimalAPI.csproj" />

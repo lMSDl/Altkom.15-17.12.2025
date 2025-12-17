@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Threading;
 using WebAPI.Filters;
+using WebAPI.Hubs;
 
 namespace WebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
         private readonly IList<int> _values;
-        public ValuesController(IList<int> values) //wartości są wstrzykiwane przez mechanizm DI
+        private readonly IHubContext<ValuesHub> _valuesHub;
+        public ValuesController(IList<int> values, IHubContext<ValuesHub> valuesHub) //wartości są wstrzykiwane przez mechanizm DI
         {
             _values = values;
+            _valuesHub = valuesHub;
         }
 
         private static  int _counter = 0;
@@ -49,6 +53,8 @@ namespace WebAPI.Controllers
         public void Delete(int value)
         {
             _values.Remove(value);
+            //powiadomienie klientów SignalR o usunięciu wartości
+            _valuesHub.Clients.All.SendAsync("ValueRemoved", value);
         }
 
         [HttpDelete("query")] // jeśli route nie zaczyna się od / to jest to route względny - dołącza się do domyślnego adresu kontrolera
@@ -62,6 +68,8 @@ namespace WebAPI.Controllers
         public void Post(int value)
         {
             _values.Add(value);
+            //powiadomienie klientów SignalR o dodaniu wartości
+            _valuesHub.Clients.All.SendAsync("ValueAdded", value);
         }
 
         [HttpPut("{index:int}")]
