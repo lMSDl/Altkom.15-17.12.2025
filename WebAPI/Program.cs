@@ -79,6 +79,24 @@ builder.Services.AddResponseCompression(x =>
 builder.Services.AddOpenApi("contract");
 builder.Services.AddSignalR();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var app = builder.Build();
 
 app.UseExceptionHandler();

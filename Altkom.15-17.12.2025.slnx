@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/Services/">
+    <Project Path="DotNet/DotNet.csproj" Id="f9f41eb9-10a1-47c3-a3a7-f3dfe518cc29" />
+    <Project Path="Microsoft/Microsoft.csproj" Id="5e817dc9-c6f8-487c-a2cf-e4c11666e3b2" />
+    <Project Path="TopShelfService/TopShelfService.csproj" Id="5762118d-1007-45cb-b76f-faa0064f4b06" />
+  </Folder>
   <Project Path="ConsoleApp/ConsoleApp.csproj" />
   <Project Path="GrpcClient/GrpcClient.csproj" />
   <Project Path="GrpcService/GrpcService.csproj" />
