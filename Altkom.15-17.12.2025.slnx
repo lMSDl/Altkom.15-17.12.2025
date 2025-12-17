@@ -5,6 +5,8 @@
   <Project Path="Services.Bogus/Services.Bogus.csproj" />
   <Project Path="Services.InMemory/Services.InMemory.csproj" />
   <Project Path="Services.Interfaces/Services.Interfaces.csproj" />
+  <Project Path="SignalR/SignalR.csproj" />
+  <Project Path="SignalRClient/SignalRClient.csproj" />
   <Project Path="WebAPI/WebAPI.csproj" />
   <Project Path="WebApp/WebApp.csproj" />
   <Project Path="WebMinimalAPI/WebMinimalAPI.csproj" />
